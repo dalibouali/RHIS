@@ -21,4 +21,6 @@ public class Droit {
     @ManyToOne
     private  Ecran ecran ;
 
+    private Integer cum;
+
 }
