@@ -49,6 +49,8 @@ public class usercontroller {
             return  ResponseEntity.ok().body(user);
         }
 
+   @DeleteMapping("/delete/")
+
 
 
     @GetMapping("/products")

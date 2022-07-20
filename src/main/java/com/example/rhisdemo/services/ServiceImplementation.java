@@ -59,8 +59,8 @@ public class ServiceImplementation implements ServiceInterface{
     }
 
     @Override
-    public void deleteUser(User u) {
-        userRepository.delete(u);
+    public void deleteUser(String username) {
+        userRepository.delete(userRepository.findUserByUsername(username));
 
     }
 
@@ -93,8 +93,8 @@ public class ServiceImplementation implements ServiceInterface{
     }
 
     @Override
-    public void deleteProduct(Product p) {
-        productRepository.delete(p);
+    public void deleteProduct(String username) {
+        productRepository.delete(productRepository.findByName(username));
 
     }
 }

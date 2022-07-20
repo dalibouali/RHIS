@@ -15,14 +15,14 @@ public interface ServiceInterface {
     public User getUser(String username);
     public User addUser(User u);
     public User updateUser(String username, UserRequest newuser);
-    public void deleteUser(User u);
+    public void deleteUser(String username);
 
 
     public List<Product> getAllProducts();
     public Product getProduct(String name);
     public Product addProduct(Product p);
     public Product updateProduct(Product p, ProductRequest newpro);
-    public void deleteProduct(Product p);
+    public void deleteProduct(String username);
 
 
 
