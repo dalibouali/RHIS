@@ -49,8 +49,11 @@ public class usercontroller {
             return  ResponseEntity.ok().body(user);
         }
 
-   @DeleteMapping("/delete/")
-
+   @DeleteMapping("/delete/{username}")
+   public  ResponseEntity<?> deleteuser(@PathVariable String username){
+        serviceInterface.deleteUser(username);
+        return ResponseEntity.ok().body("user deleted successfully ");
+   }
 
 
     @GetMapping("/products")
