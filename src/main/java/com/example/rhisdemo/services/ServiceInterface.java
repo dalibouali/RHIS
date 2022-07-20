@@ -21,7 +21,7 @@ public interface ServiceInterface {
     public List<Product> getAllProducts();
     public Product getProduct(String name);
     public Product addProduct(Product p);
-    public Product updateProduct(Product p, ProductRequest newpro);
+    public Product updateProduct(String name, ProductRequest newpro);
     public void deleteProduct(String username);
 
 

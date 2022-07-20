@@ -80,7 +80,8 @@ public class ServiceImplementation implements ServiceInterface{
     }
 
     @Override
-    public Product updateProduct(Product p, ProductRequest newpro) {
+    public Product updateProduct(String name, ProductRequest newpro) {
+        Product p=productRepository.findByName(name);
         if (newpro.getName()!=null){
             p.setName(newpro.getName());
         }
