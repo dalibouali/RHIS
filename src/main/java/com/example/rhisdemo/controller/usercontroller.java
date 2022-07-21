@@ -1,5 +1,6 @@
 package com.example.rhisdemo.controller;
 
+import com.example.rhisdemo.Dto.ProductRequest;
 import com.example.rhisdemo.Dto.UserRequest;
 import com.example.rhisdemo.entities.Product;
 import com.example.rhisdemo.entities.User;
@@ -74,10 +75,23 @@ public class usercontroller {
 
 
     }
+
     @PostMapping("/addproduct")
     public  ResponseEntity<?> addProduct(@RequestBody Product prod){
         serviceInterface.addProduct(prod);
         return  ResponseEntity.ok().body(prod);
+    }
+
+    @DeleteMapping("/deleteproduct/{name}")
+    public  ResponseEntity<?> deleteproduct(@PathVariable String name){
+        serviceInterface.deleteProduct(name);
+        return ResponseEntity.ok().body(true);
+    }
+
+    @PutMapping("/updateproduct/{name}")
+    public  ResponseEntity<?> updateproduct(@PathVariable String name,@RequestBody ProductRequest product){
+        serviceInterface.updateProduct(name,product);
+        return  ResponseEntity.ok().body(product);
     }
 
 
