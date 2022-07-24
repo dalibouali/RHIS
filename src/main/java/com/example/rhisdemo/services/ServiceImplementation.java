@@ -6,18 +6,47 @@ import com.example.rhisdemo.entities.Product;
 import com.example.rhisdemo.entities.User;
 import com.example.rhisdemo.repositories.ProductRepository;
 import com.example.rhisdemo.repositories.UserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class ServiceImplementation implements ServiceInterface{
+@Transactional
+@Slf4j //for log
+public class ServiceImplementation implements ServiceInterface, UserDetailsService {
     private final  UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ServiceImplementation(UserRepository userRepository,ProductRepository productRepository) {
+    public ServiceImplementation(UserRepository userRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.productRepository=productRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user=userRepository.findUserByUsername(username);
+        if(user==null)
+        {
+            log.error("User not found in DB");
+            throw new UsernameNotFoundException("USEr not found in the database");
+        }else{
+            log.info("User found in DB :{}",username);
+        }
+        Collection<SimpleGrantedAuthority> authorities=new ArrayList<>();
+        user.getAffectationList().forEach(role->{
+            authorities.add(new SimpleGrantedAuthority(role.getRole().toString()));
+        });
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities) ;
     }
 
     @Override
@@ -32,6 +61,8 @@ public class ServiceImplementation implements ServiceInterface{
 
     @Override
     public User addUser(User u) {
+
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
         return userRepository.save(u);
     }
 
