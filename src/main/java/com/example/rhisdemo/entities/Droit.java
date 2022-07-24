@@ -17,11 +17,9 @@ public class Droit {
     private  Long id;
 
     @ManyToOne
-   // @JsonIgnore
     private Role roleD;
 
     @ManyToOne(fetch = FetchType.EAGER)
-  //  @JsonIgnore
     private  Ecran ecran ;
 
     private Integer cum;
