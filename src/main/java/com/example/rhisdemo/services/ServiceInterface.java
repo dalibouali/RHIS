@@ -4,11 +4,13 @@ import com.example.rhisdemo.Dto.ProductRequest;
 import com.example.rhisdemo.Dto.UserRequest;
 import com.example.rhisdemo.entities.Product;
 import com.example.rhisdemo.entities.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ServiceInterface {
+    public UserDetails loadUserByUsername(String username);
 
 
     public List<User> getAllUsers();
