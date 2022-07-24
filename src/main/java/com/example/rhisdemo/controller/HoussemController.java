@@ -14,6 +14,7 @@ import java.util.List;
 
 // controller added by houssem to implement services in the houssemService class
 @RestController
+@CrossOrigin(origins ="*")
 public class HoussemController {
 
     @Autowired
@@ -37,6 +38,17 @@ public class HoussemController {
     public void deleterole(@PathVariable("id") long id){
         hs.deleteRole(id);
     }
+
+
+
+    @GetMapping("/retrieve-role/{name}")
+    public Role findRoleByName(@PathVariable("name") String name){
+        return hs.getRoleByname(name);
+    }
+
+
+
+
 
 
 

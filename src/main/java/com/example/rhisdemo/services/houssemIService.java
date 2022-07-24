@@ -18,6 +18,8 @@ public interface houssemIService {
     public Role modifiyRole(Role r);
     public void deleteRole(long r);
 
+    public Role getRoleByname(String name);
+
     // Affectation Crud
     public List<Affectation> affectationdisplayAll();
     public Affectation addAffectation(Affectation a, long role_id,long user_id);

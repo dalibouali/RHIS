@@ -50,6 +50,14 @@ public class houssemService implements houssemIService {
         rr.deleteById(r);
     }
 
+
+    @Override
+    public Role getRoleByname(String name) {
+       return rr.findByName(name);
+    }
+
+
+
     @Override
     public List<Affectation> affectationdisplayAll() {
         return (List<Affectation>) ar.findAll();
@@ -121,7 +129,7 @@ public class houssemService implements houssemIService {
         Role r=rr.findById(role_id).orElse(null);
         Ecran e=er.findById(ecran_id).orElse(null);
         d.setEcran(e);
-        d.setRole(r);
+        d.setRoleD(r);
         return dr.save(d);
     }
 
@@ -130,7 +138,7 @@ public class houssemService implements houssemIService {
         Role r=rr.findById(role_id).orElse(null);
         Ecran e=er.findById(ecran_id).orElse(null);
         d.setEcran(e);
-        d.setRole(r);
+        d.setRoleD(r);
         return dr.save(d);
     }
 
