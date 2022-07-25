@@ -120,6 +120,11 @@ public class houssemService implements houssemIService {
     }
 
     @Override
+    public Ecran getEcran(String name) {
+        return er.findByName(name);
+    }
+
+    @Override
     public List<Droit> droitdisplayAll() {
         return (List<Droit>) dr.findAll();
     }

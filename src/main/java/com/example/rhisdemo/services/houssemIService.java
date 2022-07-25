@@ -33,6 +33,7 @@ public interface houssemIService {
     public Ecran modifyEcran(Ecran e);
     public Ecran retrieveEcran(long id);
     public void deleteEcran(long id);
+    public Ecran getEcran(String name);
 
 
 

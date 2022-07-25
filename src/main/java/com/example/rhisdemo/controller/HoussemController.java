@@ -102,6 +102,9 @@ public class HoussemController {
         hs.deleteEcran(id);
     }
 
+    @GetMapping("/get-ecran/{name}")
+    public Ecran getEcran(@PathVariable("name") String name){return hs.getEcran(name);}
+
     // DROIT HTTP METHODS
     @GetMapping("/retrieve-all-droits")
     public List<Droit> getAllDroits(){
