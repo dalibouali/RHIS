@@ -1,5 +1,6 @@
 package com.example.rhisdemo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,7 @@ public class User {
 
 
     @OneToMany(mappedBy ="user",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Affectation> affectationList;
 
 }
