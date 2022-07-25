@@ -1,5 +1,6 @@
 package com.example.rhisdemo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class User {
     private String password;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy ="user",cascade = CascadeType.ALL)
     private List<Affectation> affectationList;
 

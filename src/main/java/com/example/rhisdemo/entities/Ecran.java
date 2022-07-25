@@ -1,5 +1,6 @@
 package com.example.rhisdemo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Ecran {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ecran",cascade = CascadeType.ALL)
-    private List<Droit> EcranList;
+    private List<Droit> DroitList;
 }

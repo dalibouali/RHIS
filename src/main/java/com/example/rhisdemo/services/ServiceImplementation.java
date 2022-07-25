@@ -43,9 +43,9 @@ public class ServiceImplementation implements ServiceInterface, UserDetailsServi
             log.info("User found in DB :{}",username);
         }
         Collection<SimpleGrantedAuthority> authorities=new ArrayList<>();
-        user.getAffectationList().forEach(role->{
+       /* user.getAffectationList().forEach(role->{
             authorities.add(new SimpleGrantedAuthority(role.getRole().toString()));
-        });
+        });*/
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities) ;
     }
 

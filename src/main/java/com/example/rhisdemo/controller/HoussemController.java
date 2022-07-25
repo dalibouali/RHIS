@@ -14,6 +14,7 @@ import java.util.List;
 
 // controller added by houssem to implement services in the houssemService class
 @RestController
+@CrossOrigin(origins = "*")
 public class HoussemController {
 
     @Autowired

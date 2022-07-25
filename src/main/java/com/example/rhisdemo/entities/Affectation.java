@@ -1,5 +1,6 @@
 package com.example.rhisdemo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 public class Affectation {
     @Id
     private Long id;
+
 
     @ManyToOne
     private User user;
