@@ -1,5 +1,6 @@
 package com.example.rhisdemo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Droit {
     @ManyToOne
     private Role role;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private  Ecran ecran ;
 
     private Integer cum;

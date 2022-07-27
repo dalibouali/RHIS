@@ -2,8 +2,12 @@ package com.example.rhisdemo.services;
 
 import com.example.rhisdemo.Dto.ProductRequest;
 import com.example.rhisdemo.Dto.UserRequest;
+import com.example.rhisdemo.entities.Affectation;
+import com.example.rhisdemo.entities.Droit;
 import com.example.rhisdemo.entities.Product;
 import com.example.rhisdemo.entities.User;
+import com.example.rhisdemo.repositories.AffectationRepository;
+import com.example.rhisdemo.repositories.DroitRepository;
 import com.example.rhisdemo.repositories.ProductRepository;
 import com.example.rhisdemo.repositories.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,15 +30,20 @@ public class ServiceImplementation implements ServiceInterface, UserDetailsServi
     private final  UserRepository userRepository;
     private final ProductRepository productRepository;
     private final PasswordEncoder passwordEncoder;
+    private final DroitRepository droitRepository;
+    private  final AffectationRepository affectationRepository;
 
-    public ServiceImplementation(UserRepository userRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder) {
+    public ServiceImplementation(UserRepository userRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder, DroitRepository droitRepository,AffectationRepository affectationRepository) {
         this.userRepository = userRepository;
         this.productRepository=productRepository;
         this.passwordEncoder = passwordEncoder;
+        this.affectationRepository=affectationRepository;
+        this.droitRepository=droitRepository;
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRepository.findUserByUsername(username);
+
         if(user==null)
         {
             log.error("User not found in DB");
@@ -42,7 +51,29 @@ public class ServiceImplementation implements ServiceInterface, UserDetailsServi
         }else{
             log.info("User found in DB :{}",username);
         }
+
         Collection<SimpleGrantedAuthority> authorities=new ArrayList<>();
+        List<Affectation> affectations =affectationRepository.findByUser(user.getId());
+        for(Affectation a:affectations){
+            List<Droit> droits=droitRepository.findAllByRole(a.getRole().getId());
+            String dr=null;
+            for(Droit d:droits){
+                switch (d.getCum()){
+                    case 1:dr="READ";
+                    break;
+                    case 3:dr="READ-WRITE";
+                    break;
+                    case 5 :dr="READ-UPDATE";
+                    break;
+                    case 7 :dr="READ-WRITE-UPDATE";
+                    break;
+
+                }
+                authorities.add(new SimpleGrantedAuthority(d.getEcran().getName()+dr));
+            }
+
+        }
+
        /* user.getAffectationList().forEach(role->{
             authorities.add(new SimpleGrantedAuthority(role.getRole().toString()));
         });*/

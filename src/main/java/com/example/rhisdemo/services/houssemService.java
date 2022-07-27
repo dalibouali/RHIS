@@ -50,6 +50,14 @@ public class houssemService implements houssemIService {
         rr.deleteById(r);
     }
 
+
+    @Override
+    public Role getRoleByname(String name) {
+       return rr.findByName(name);
+    }
+
+
+
     @Override
     public List<Affectation> affectationdisplayAll() {
         return (List<Affectation>) ar.findAll();
@@ -109,6 +117,11 @@ public class houssemService implements houssemIService {
     public void deleteEcran(long id) {
 
         er.deleteById(id);
+    }
+
+    @Override
+    public Ecran getEcran(String name) {
+        return er.findByName(name);
     }
 
     @Override

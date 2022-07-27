@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,5 +25,9 @@ public class Role {
 
     @JsonIgnore
     @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
-    private List<Affectation> affectationList;
+    private List<Affectation> affectationList=new ArrayList<Affectation>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
+    private List<Droit> droitList=new ArrayList<Droit>();
 }

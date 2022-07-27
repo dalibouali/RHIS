@@ -42,7 +42,7 @@ public class JwtUtil {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
@@ -56,16 +56,14 @@ public class JwtUtil {
         User user = userRepository.findUserByUsername(userDetails.getUsername());
         List<Affectation> affectations =affectationRepository.findByUser(user.getId());
         for(Affectation a:affectations){
-
             List<Droit> droits=droitRepository.findAllByRole(a.getRole().getId());
-
-
             for(Droit d:droits){
                 System.out.println(d.getEcran().getName());
                 claims.put(d.getEcran().getName(),d.getCum());
             }
 
         }
+
 
 
         return createToken(claims, userDetails.getUsername(),userDetails.getAuthorities());
