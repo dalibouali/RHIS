@@ -62,7 +62,7 @@ public class ServiceImplementation implements ServiceInterface, UserDetailsServi
     @Override
     public User addUser(User u) {
 
-        u.setPassword(passwordEncoder.encode(u.getPassword()));
+      //  u.setPassword(passwordEncoder.encode(u.getPassword()));
         return userRepository.save(u);
     }
 
