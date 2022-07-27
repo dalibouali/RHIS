@@ -28,6 +28,6 @@ public class Role {
     private List<Affectation> affectationList=new ArrayList<Affectation>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "roleD",cascade = CascadeType.ALL)
-    private List<Droit> droitListR=new ArrayList<Droit>();
+    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
+    private List<Droit> droitList=new ArrayList<Droit>();
 }

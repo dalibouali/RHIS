@@ -40,8 +40,9 @@ public class User {
     private String password;
 
 
-    @OneToMany(mappedBy ="user",cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Affectation> affectationList=new ArrayList<Affectation>();
+    @OneToMany(mappedBy ="user",cascade = CascadeType.ALL)
+    private List<Affectation> affectationList;
+
 
 }

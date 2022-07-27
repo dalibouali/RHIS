@@ -42,12 +42,15 @@ public class CustomAuthorisationFilter extends OncePerRequestFilter {
             String authorizationHeader=request.getHeader(AUTHORIZATION);
 
             String username=null;
+            Object  ListUser=0;
             String token=null;
             if(authorizationHeader!=null&& authorizationHeader.startsWith("Bearer ")) {
 
                 token = authorizationHeader.substring("Bearer ".length());
                 System.out.println(token);
                 username = jwtUtil.extractUsername(token);
+                ListUser =jwtUtil.extractAllClaims(token).get("ListUser");
+                System.out.println(ListUser);
             }
 
                     if(username!=null&&SecurityContextHolder.getContext().getAuthentication()==null) {

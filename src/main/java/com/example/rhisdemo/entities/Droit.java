@@ -17,7 +17,7 @@ public class Droit {
     private  Long id;
 
     @ManyToOne
-    private Role roleD;
+    private Role role;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private  Ecran ecran ;

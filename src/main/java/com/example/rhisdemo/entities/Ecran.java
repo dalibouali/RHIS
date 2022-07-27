@@ -22,5 +22,6 @@ public class Ecran {
 
     @JsonIgnore
     @OneToMany(mappedBy = "ecran",cascade = CascadeType.ALL)
-    private List<Droit> DroitList=new ArrayList<Droit>();
+    private List<Droit> DroitList;
+
 }

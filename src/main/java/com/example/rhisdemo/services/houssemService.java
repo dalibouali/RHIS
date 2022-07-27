@@ -134,7 +134,7 @@ public class houssemService implements houssemIService {
         Role r=rr.findById(role_id).orElse(null);
         Ecran e=er.findById(ecran_id).orElse(null);
         d.setEcran(e);
-        d.setRoleD(r);
+        d.setRole(r);
         return dr.save(d);
     }
 
@@ -143,7 +143,7 @@ public class houssemService implements houssemIService {
         Role r=rr.findById(role_id).orElse(null);
         Ecran e=er.findById(ecran_id).orElse(null);
         d.setEcran(e);
-        d.setRoleD(r);
+        d.setRole(r);
         return dr.save(d);
     }
 
