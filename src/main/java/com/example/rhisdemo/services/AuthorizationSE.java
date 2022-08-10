@@ -1,33 +1,52 @@
 package com.example.rhisdemo.services;
 
+import com.example.rhisdemo.entities.Affectation;
+import com.example.rhisdemo.entities.Droit;
+import com.example.rhisdemo.entities.User;
+import com.example.rhisdemo.repositories.AffectationRepository;
 import com.example.rhisdemo.repositories.DroitRepository;
 import com.example.rhisdemo.repositories.RoleRepository;
 import com.example.rhisdemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.util.*;
 
+
+@Service
 public class AuthorizationSE {
-
     @Autowired
-    private UserRepository userRepo;
-
+    private UserRepository userRepository;
+    @Autowired
+    private AffectationRepository affectationRepository;
     @Autowired
     private DroitRepository droitRepository;
 
-    /**
-     * Vérifie l'autorisation pour les privileges qui ne sont pas sensé contenir de contraintes sur l'objet visé
-     * @param action le type d'action demandée
-     * @param entity l'objet visé
-     * @return
-     */
-  /*  public boolean can(String action, String entity) {
-        UserPrincipal currentUser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //recuperation du privilege par action et par entité : logiquement il n'en existe qu'un par role avec cette action et cet objet
-        Privilege privilege = privilegeRepo.findByActionAndEntityAndRole(action, entity, currentUser.getRole());
-        //si privileges existe et qu'il n'attend pas de vérification de contrainte
-        return (null != privilege && !privilege.isConstrained());
+    public AuthorizationSE(UserRepository userRepository, AffectationRepository affectationRepository, DroitRepository droitRepository) {
+        this.userRepository = userRepository;
+        this.affectationRepository = affectationRepository;
+        this.droitRepository = droitRepository;
+    }
 
-    }*/
+
+    public Map<String, Object> getPrivileges(String username) {
+        System.out.println(username);
+
+
+        Map<String, Object> privileges = new HashMap<>();
+        User user = userRepository.findUserByUsername(username);
+        List<Affectation> affectations = affectationRepository.findByUser(user.getId());
+        for (Affectation a : affectations) {
+            List<Droit> droits = droitRepository.findAllByRole(a.getRole().getId());
+            for (Droit d : droits) {
+
+                privileges.put(d.getEcran().getName(), d.getCum());
+            }
+
+        }
+        return privileges;
+    }
 }

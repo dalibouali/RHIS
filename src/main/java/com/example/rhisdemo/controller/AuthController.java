@@ -4,6 +4,7 @@ import com.example.rhisdemo.Dto.AuthenticationRequest;
 import com.example.rhisdemo.Dto.AuthenticationResponse;
 import com.example.rhisdemo.entities.User;
 import com.example.rhisdemo.security.JwtUtil;
+import com.example.rhisdemo.services.AuthorizationSE;
 import com.example.rhisdemo.services.ServiceImplementation;
 import com.example.rhisdemo.services.ServiceInterface;
 
@@ -24,6 +25,7 @@ import java.nio.file.attribute.UserPrincipal;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class AuthController {
     @Autowired
     private final ServiceInterface userService;
@@ -33,15 +35,17 @@ public class AuthController {
     private final ServiceImplementation userServiceImplementation;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired AuthorizationSE authorizationSE;
 
-    public AuthController(ServiceInterface userService, AuthenticationManager authenticationManager, ServiceImplementation userServiceImplementation) {
+    public AuthController(ServiceInterface userService, AuthenticationManager authenticationManager, ServiceImplementation userServiceImplementation,AuthorizationSE authorizationSE) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.userServiceImplementation = userServiceImplementation;
+        this.authorizationSE=authorizationSE;
     }
 
 
-    @CrossOrigin(origins = "*")
+
     @RequestMapping(value ="/signin", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthentificationToken(@RequestBody AuthenticationRequest request) throws Exception {
 
@@ -72,5 +76,12 @@ public class AuthController {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/register").toUriString());
 
         return ResponseEntity.created(uri).body(userService.addUser(user));
+    }
+
+
+
+    @GetMapping("/privileges/{username}")
+    public ResponseEntity<?>getPrevileges(@PathVariable String username){
+        return ResponseEntity.status(HttpStatus.OK).body(authorizationSE.getPrivileges(username));
     }
 }
