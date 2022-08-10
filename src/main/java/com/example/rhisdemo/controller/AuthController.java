@@ -63,6 +63,7 @@ public class AuthController {
         String access_token= jwtUtil.generateToken(userDetails);
 
 
+
         return ResponseEntity.ok(new AuthenticationResponse(access_token));
     }
     @CrossOrigin(origins = "*")

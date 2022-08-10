@@ -29,7 +29,6 @@ public class JwtUtil {
         this.droitRepository=droitRepository;
     }
     private String SECRET_KEY = "secret";
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -45,6 +44,7 @@ public class JwtUtil {
     public Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
+
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
