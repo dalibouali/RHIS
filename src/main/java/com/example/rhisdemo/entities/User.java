@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,5 +43,6 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy ="user",cascade = CascadeType.ALL)
     private List<Affectation> affectationList;
+
 
 }
